@@ -1,38 +1,42 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "@emilianosantucci/building-home",
+  "npmScope": "building-home",
+  "affected": {
+    "defaultBase": "master"
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ],
-        "accessToken": "OGUzYThmMDctMDJhMi00NGEzLTg0NjEtOTMwOWYzZTcwY2M0fHJlYWQtd3JpdGU="
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "MTQyZjQ4ZjItZjJlYy00ODY0LTkwMTYtZDA2MDEwOTdmMjU2fHJlYWQtd3JpdGU="
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    },
+    "lint": {
       "inputs": [
-        "production",
-        "^production"
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore"
       ]
+    },
+    "test": {
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     }
   },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
-      "default"
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s"
     ],
     "sharedGlobals": []
   }
