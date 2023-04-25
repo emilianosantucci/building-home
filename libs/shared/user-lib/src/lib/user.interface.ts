@@ -1,5 +1,7 @@
-import { UserRole } from './user-role.interface';
+import { Workspace } from '@building-home/shared-workspace-lib';
+
 export interface User {
-  id: string;
-  roles: UserRole[];
+  id?: string;
+  username: string;
+  workspaces?: Workspace[];
 }

@@ -1,4 +1,4 @@
-export const UserRole = {
+export const PersonRoles = {
   OWNER: 'owner',
   SURVEYOR: 'surveyor',
   MASON: 'mason',
@@ -6,4 +6,4 @@ export const UserRole = {
   HYDRAULIC: 'hydraulic',
 };
 
-export type UserRole = typeof UserRole[keyof typeof UserRole];
+export type PersonRole = (typeof PersonRoles)[keyof typeof PersonRoles];
