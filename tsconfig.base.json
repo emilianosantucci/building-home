@@ -15,13 +15,14 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@building-home/shared-person-lib": [
+        "libs/shared-person-lib/src/index.ts"
+      ],
       "@building-home/shared-user-lib": ["libs/shared/user-lib/src/index.ts"],
       "@building-home/shared-workspace-lib": [
         "libs/shared/workspace-lib/src/index.ts"
       ],
-      "@building-home/shared-person-lib": [
-        "libs/shared-person-lib/src/index.ts"
-      ]
+      "@bulding-home/client-person-lib": ["libs/client/person-lib/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
