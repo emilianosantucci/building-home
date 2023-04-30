@@ -1,3 +1,10 @@
-<label for="name">Name: </label>
-<input id="name" type="text" [formControl]="name">
-<p>Value: {{ name.value }}</p>
+<form [formGroup]="vm.form">
+  <h3>General Person Info</h3>
+  <label for="person-type">Type</label>
+  <select id="person-type" formControlName="type">
+    <option *ngFor="let type of vm.types"
+            [value]="type.id">
+      {{type.name}}
+    </option>
+  </select>
+</form>
