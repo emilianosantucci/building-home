@@ -2,9 +2,19 @@
   <h3>General Person Info</h3>
   <label for="person-type">Type</label>
   <select id="person-type" formControlName="type">
-    <option *ngFor="let type of vm.types"
-            [value]="type.id">
-      {{type.name}}
+    <option *ngFor="let item of vm.types"
+            [value]="item.id">
+      {{item.name}}
     </option>
   </select>
+  <label for="person-roles">Role(s)</label>
+  <select id="person-roles" formControlName="roles" multiple>
+    <option *ngFor="let item of vm.roles"
+            [value]="item.id" [selected]="hasRole(item.id)">
+      {{item.name}}
+    </option>
+  </select>
+  <div [ngSwitch]="vm.form.get('type')?.value">
+    <bh-physical-person-form *ngSwitchCase="'PHYSICAL'" [person]="vm.person"></bh-physical-person-form>
+  </div>
 </form>

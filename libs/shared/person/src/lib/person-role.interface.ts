@@ -1,9 +1,14 @@
-export const PersonRoles = {
-  OWNER: 'owner',
-  SURVEYOR: 'surveyor',
-  MASON: 'mason',
-  ELECTRICIAN: 'electrician',
-  HYDRAULIC: 'hydraulic',
-};
+export type PersonRole =
+  | 'OWNER'
+  | 'SURVEYOR'
+  | 'MASON'
+  | 'ELECTRICIAN'
+  | 'HYDRAULIC';
 
-export type PersonRole = (typeof PersonRoles)[keyof typeof PersonRoles];
+export const personRoleLabels = {
+  OWNER: 'Owner',
+  SURVEYOR: 'Surveyor',
+  MASON: 'Mason',
+  ELECTRICIAN: 'Electrician',
+  HYDRAULIC: 'Hydraulic',
+} as const;

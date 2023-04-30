@@ -5,4 +5,5 @@ export interface Person {
   id?: string;
   roles: PersonRole[];
   readonly type: PersonType;
+  [key: string]: unknown;
 }
