@@ -9,13 +9,19 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Person } from '@building-home/shared-lib-person';
+import { LegalPersonFormComponent } from './legal-person-form/legal-person-form.component';
 import { PersonFormViewModel } from './person-form.view-model';
 import { PhysicalPersonFormComponent } from './physical-person-form/physical-person-form.component';
 
 @Component({
   selector: 'bh-person-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, PhysicalPersonFormComponent],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    PhysicalPersonFormComponent,
+    LegalPersonFormComponent,
+  ],
   templateUrl: './person-form.component.html',
   styleUrls: ['./person-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -19,6 +19,12 @@
                              [person]="vm.person"
                              [form]="vm.form">
     </bh-physical-person-form>
+    <bh-legal-person-form *ngSwitchCase="'LEGAL'"
+                          [person]="vm.person"
+                          [form]="vm.form"
+    >
+
+    </bh-legal-person-form>
   </div>
   <button type="submit">Send</button>
 </form>

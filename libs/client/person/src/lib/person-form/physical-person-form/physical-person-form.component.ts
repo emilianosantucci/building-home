@@ -23,14 +23,12 @@ import { PhysicalPersonFormViewModel } from './physical-person-form.view-model';
 export class PhysicalPersonFormComponent implements OnInit, OnDestroy {
   @Input() form!: FormGroup;
   @Input() person?: Person;
-  @Output() initialized: EventEmitter<void>;
   @Output() changed: EventEmitter<PhysicalPerson>;
 
   protected vm!: PhysicalPersonFormViewModel;
 
   constructor(private formBuilder: FormBuilder) {
     this.changed = new EventEmitter<PhysicalPerson>();
-    this.initialized = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
@@ -42,6 +40,6 @@ export class PhysicalPersonFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.vm.removeControls();
+    this.vm.removeFormControls();
   }
 }
