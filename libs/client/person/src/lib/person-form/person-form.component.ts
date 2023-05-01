@@ -4,15 +4,12 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import {
-  Person,
-  personRoleLabels,
-  personTypeLabels,
-} from '@building-home/shared-lib-person';
-import { PersonViewModel } from './person-form.model';
+import { Person } from '@building-home/shared-lib-person';
+import { PersonFormViewModel } from './person-form.view-model';
 import { PhysicalPersonFormComponent } from './physical-person-form/physical-person-form.component';
 
 @Component({
@@ -23,43 +20,29 @@ import { PhysicalPersonFormComponent } from './physical-person-form/physical-per
   styleUrls: ['./person-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonFormComponent {
-  @Input() readonly model?: Person;
-  @Input() readonly editMode: boolean;
+export class PersonFormComponent implements OnInit {
+  @Input() data!: Person;
+  @Input() editMode!: boolean;
   @Output() readonly submitted: EventEmitter<Person>;
 
-  protected vm: PersonViewModel;
+  protected vm!: PersonFormViewModel;
 
   constructor(private formBuilder: FormBuilder) {
-    if (!this.model) {
-      this.model = {
-        roles: ['OWNER'],
-        type: 'PHYSICAL',
-      };
-    }
-
-    this.editMode = false;
     this.submitted = new EventEmitter<Person>();
-
-    this.vm = {
-      editMode: this.editMode,
-      form: formBuilder.group({
-        id: this.model.id,
-        type: this.model.type,
-        roles: [this.model.roles],
-      }),
-      roles: Object.entries(personRoleLabels).map(([key, value]) => ({
-        id: key,
-        name: value,
-      })),
-      types: Object.entries(personTypeLabels).map(([key, value]) => ({
-        id: key,
-        name: value,
-      })),
-      person: this.model,
-    };
+  }
+  ngOnInit(): void {
+    this.vm = new PersonFormViewModel(
+      this.formBuilder,
+      this.editMode,
+      this.data
+    );
   }
 
   protected hasRole = (role: string): boolean =>
     this.vm.form.value.roles.includes(role);
+
+  onSubmit() {
+    console.log(this.vm.form.controls);
+    console.log(this.vm.form.value);
+  }
 }

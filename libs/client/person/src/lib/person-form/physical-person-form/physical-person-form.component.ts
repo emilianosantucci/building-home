@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Person, PhysicalPerson } from '@building-home/shared-lib-person';
+import { PhysicalPersonFormViewModel } from './physical-person-form.view-model';
 
 @Component({
   selector: 'bh-physical-person-form',
@@ -19,28 +20,23 @@ import { Person, PhysicalPerson } from '@building-home/shared-lib-person';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PhysicalPersonFormComponent implements OnInit {
+  @Input() form!: FormGroup;
   @Input() person?: Person;
+  @Output() initialized: EventEmitter<void>;
   @Output() changed: EventEmitter<PhysicalPerson>;
 
-  private physicalPerson?: PhysicalPerson;
-
-  protected vm: { form: FormGroup };
+  protected vm!: PhysicalPersonFormViewModel;
 
   constructor(private formBuilder: FormBuilder) {
     this.changed = new EventEmitter<PhysicalPerson>();
-
-    this.vm = {
-      form: formBuilder.group({
-        firstName: [this.physicalPerson?.firstName],
-        lastName: [this.physicalPerson?.lastName],
-        phoneNumber: [this.physicalPerson?.phoneNumber],
-        email: [this.physicalPerson?.email],
-      }),
-    };
+    this.initialized = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
-    this.physicalPerson = this.person as PhysicalPerson;
-    this.vm.form.patchValue(this.physicalPerson);
+    this.vm = new PhysicalPersonFormViewModel(
+      this.formBuilder,
+      this.form,
+      this.person as PhysicalPerson
+    );
   }
 }
