@@ -37,9 +37,11 @@ export class LegalPersonFormComponent implements OnInit, OnDestroy {
       this.form,
       this.person as LegalPerson
     );
+
+    this.vm.addChildFormControlsToParent();
   }
 
   ngOnDestroy(): void {
-    this.vm.removeControls();
+    this.vm.removeChildFormControlsFromParent();
   }
 }

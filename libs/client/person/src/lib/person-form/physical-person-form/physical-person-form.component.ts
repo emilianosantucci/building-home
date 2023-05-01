@@ -37,9 +37,10 @@ export class PhysicalPersonFormComponent implements OnInit, OnDestroy {
       this.form,
       this.person as PhysicalPerson
     );
+    this.vm.addChildFormControlsToParent();
   }
 
   ngOnDestroy(): void {
-    this.vm.removeFormControls();
+    this.vm.removeChildFormControlsFromParent();
   }
 }

@@ -8,11 +8,11 @@ export class PhysicalPersonFormViewModel {
 
   constructor(
     private formBuilder: FormBuilder,
-    parentForm: FormGroup,
+    parent: FormGroup,
     person?: PhysicalPerson
   ) {
     this.person = person;
-    this.form = parentForm;
+    this.form = parent;
 
     this.physicalPersonFormControls = formBuilder.group({
       firstName: [this.person?.firstName],
@@ -20,17 +20,15 @@ export class PhysicalPersonFormViewModel {
       phoneNumber: [this.person?.phoneNumber],
       email: [this.person?.email],
     });
-
-    this.addFormControls();
   }
 
-  addFormControls() {
+  addChildFormControlsToParent() {
     for (const name in this.physicalPersonFormControls.controls) {
       this.form.addControl(name, this.physicalPersonFormControls.get(name));
     }
   }
 
-  removeFormControls() {
+  removeChildFormControlsFromParent() {
     for (const name in this.physicalPersonFormControls.controls) {
       this.form.removeControl(name);
     }
