@@ -4,6 +4,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -19,7 +20,7 @@ import { PhysicalPersonFormViewModel } from './physical-person-form.view-model';
   styleUrls: ['./physical-person-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PhysicalPersonFormComponent implements OnInit {
+export class PhysicalPersonFormComponent implements OnInit, OnDestroy {
   @Input() form!: FormGroup;
   @Input() person?: Person;
   @Output() initialized: EventEmitter<void>;
@@ -38,5 +39,9 @@ export class PhysicalPersonFormComponent implements OnInit {
       this.form,
       this.person as PhysicalPerson
     );
+  }
+
+  ngOnDestroy(): void {
+    this.vm.removeControls();
   }
 }

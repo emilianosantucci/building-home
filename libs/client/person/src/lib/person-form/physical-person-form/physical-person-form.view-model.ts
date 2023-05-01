@@ -4,6 +4,7 @@ import { PhysicalPerson } from '@building-home/shared-lib-person';
 export class PhysicalPersonFormViewModel {
   readonly form: FormGroup;
   readonly person?: PhysicalPerson;
+  private readonly physicalPersonControls: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -13,15 +14,25 @@ export class PhysicalPersonFormViewModel {
     this.person = person;
     this.form = parentForm;
 
-    const physicalPersonControls = formBuilder.group({
+    this.physicalPersonControls = formBuilder.group({
       firstName: [this.person?.firstName],
       lastName: [this.person?.lastName],
       phoneNumber: [this.person?.phoneNumber],
       email: [this.person?.email],
     });
 
-    for (const name in physicalPersonControls.controls) {
-      this.form.addControl(name, physicalPersonControls.get(name));
+    this.addControls();
+  }
+
+  addControls() {
+    for (const name in this.physicalPersonControls.controls) {
+      this.form.addControl(name, this.physicalPersonControls.get(name));
+    }
+  }
+
+  removeControls() {
+    for (const name in this.physicalPersonControls.controls) {
+      this.form.removeControl(name);
     }
   }
 }
